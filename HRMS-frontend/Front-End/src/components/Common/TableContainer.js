@@ -1,5 +1,6 @@
 import React, { Fragment ,useState,useEffect} from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import {
   useTable,
   useGlobalFilter,
@@ -163,20 +164,12 @@ console.log("clicked");
   }
 
   let handelSubmit=async()=>{
-    //TODO:API Call to send attendance
-    // let res=await apiservice.callServicePostFormdata("localhost:3001/attendance/",{data:attendance})
+    console.log("-0-0-0",attendance);
+    axios.post("http://localhost:3001/attendance", {data:attendance}, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
+                .then((res) => { console.log(res) })
+                .catch((e) => { console.log(e) })
 
-    let temp=await fetch("localhost:3001/attendance", {
-      method: 'POST', // or 'PUT'
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization": localStorage.getItem('token')
-      },
-      body:JSON.stringify({"data":attendance})
-    })
-
-      let responce=await temp.json()
-    console.log("this is res",responce);
+    
   }
   return (
     <Fragment>

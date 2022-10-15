@@ -163,7 +163,7 @@ const SidebarContent = props => {
               <ul className="sub-menu">
 
                 {isadmin?<li>
-                  <Link to="/viewtask">{props.t("View Task(")}</Link>
+                  <Link to="/viewtask">{props.t("View Task")}</Link>
                 </li>:<></>
                 }{!isadmin?<li>
                   <Link to="/viewtasks">{props.t("View Task")}</Link>

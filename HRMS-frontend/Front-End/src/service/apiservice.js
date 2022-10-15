@@ -12,7 +12,7 @@ export const apiservice = {
         console.log(data);
         // console.log(data);
         return new Promise(async (resolve, reject) => {
-            axios.post(API_URL + URL, data, { headers: { "Authorization": localStorage.getItem('token') } })
+            axios.post(API_URL + URL, data, { headers: { "Authorization": localStorage.getItem('token') } ,'Content-Type': "multipart/form-data"})
                 .then((res) => {
                     if (res.data.response) {
                         resolve(res)
@@ -107,6 +107,7 @@ export const apiservice = {
         )
 
     },
+    
 
 
 
