@@ -20,7 +20,7 @@ import {
 } from "reactstrap";
 
 import { Link } from "react-router-dom";
-
+import "../../index.css"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
@@ -92,6 +92,11 @@ function UiTabsAccordions1(props) {
                             <p>{new Date(props.time).toLocaleTimeString('en-US')}
                               <br />
                               <strong> {props.status} </strong>
+                              <div class="switch-button">
+    <input class="switch-button-checkbox" type="checkbox"></input>
+    <label class="switch-button-label" for=""><span class="switch-button-label-span">Photo</span></label>
+  </div>
+
                             </p>
                           </div>
                         </div>
