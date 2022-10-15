@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "reactstrap"
+import { apiservice } from "service/apiservice";
 
 
 
 const LeaveApplication = () => {
+
+    const [leaves, setleaves] = useState([])
+
+    let callApi = async () => {
+        let res = await apiservice.callServiceGet("/leave/")
+        setleaves(res.data.result);
+        console.log(res.data.result);
+    }
+
+    useEffect(() => {
+        callApi()
+    }, []);
+
     const [leaveDate, setleaveDate] = useState("")
     const [leaveReason, setleaveReason] = useState("")
 
@@ -16,6 +30,8 @@ const LeaveApplication = () => {
         // console.log(e.target.value);
         setleaveReason(e.target.value)
     }
+
+
 
     let handleSubmit = () => {
         console.log(leaveDate, leaveReason);
@@ -42,19 +58,24 @@ const LeaveApplication = () => {
 
                     <div className="leaveHistory">
                         <h2> Show applications </h2>
-                        <div className="leaveCard">
-                            <div className="leaveDateWrapperHistory">
-                                <label className="leaveDateLabelHistory" htmlFor="leaveDate">Date</label>
-                                <p className="leaveDateHistory">Date is displayed here</p>
-                            </div>
-                            <div className="leaveReasonWrapperHistory">
-                                <label className="leaveReasonLabelHistory" htmlFor="leaveReason">Reason</label>
-                                <p className="leaveReasonHistory">Reason is displayed here</p>
-                            </div>
-                            <div className="leaveStatus">
-                                <h5>Not Accepted</h5>
-                            </div>
-                        </div>
+                        {leaves.map(leave => {
+                            return (
+                                <div className="leaveCard">
+                                    <div className="leaveDateWrapperHistory">
+                                        <label className="leaveDateLabelHistory" htmlFor="leaveDate">Date</label>
+                                        <p className="leaveDateHistory">{leave.startDate.slice(0, 10)}</p>
+                                    </div>
+                                    <div className="leaveReasonWrapperHistory">
+                                        <label className="leaveReasonLabelHistory" htmlFor="leaveReason">Reason</label>
+                                        <p className="leaveReasonHistory">{leave.reason}</p>
+                                    </div>
+                                    <div className="leaveStatus">
+                                        <h5>{leave.admin_response}</h5>
+                                    </div>
+                                </div>
+                            )
+                        })}
+
                     </div>
                 </Container>
             </div>
