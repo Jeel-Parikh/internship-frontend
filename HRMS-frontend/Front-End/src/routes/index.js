@@ -28,7 +28,11 @@ import ViewTask from "pages/Task/viewTask";
 import ViewProfile from "pages/Dashboard/ViewProfile";
 import TasksList from "pages/Task/tasks-list";
 import Attendance from "pages/Attendance/EmployeeAttendance";
+<<<<<<< HEAD
 import LeaveApplication from "pages/Leave Application/LeaveApplication";
+=======
+import ViewAttendance from "pages/Attendance/ViewAttendance";
+>>>>>>> 82e465fde0947340513ca53b07cad533365dde65
 // import PostJob from "../pages/Job/PostJob";
 
 
@@ -54,6 +58,7 @@ const authProtectedRoutes = [
   { path: '/admin-view-profile', component: AdminViewProfile },
   { path: "/add-employee", component: AddEmployee },
   { path: "/leave-application", component: LeaveApplication },
+  { path: "/ViewAttendace/:id", component: ViewAttendance },
 
 
   // this route should be at the end of all other routes

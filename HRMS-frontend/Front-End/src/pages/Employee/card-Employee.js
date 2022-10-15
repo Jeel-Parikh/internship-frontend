@@ -97,7 +97,7 @@ const CardEmployee = (props) => {
                 </Link>
               </div>
               <div className="flex-fill">
-                <Link to="#" id={"project" + user.id}>
+                <Link to={`/ViewAttendace/${user._id}`} id={"project" + user.id}>
                   <i className="bx bx-pie-chart-alt" />
                   <UncontrolledTooltip
                     placement="top"
