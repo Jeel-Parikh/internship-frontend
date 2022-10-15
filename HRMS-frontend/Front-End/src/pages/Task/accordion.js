@@ -51,16 +51,16 @@ function UiTabsAccordions1(props) {
   let handleTaskStatus = async () => {
     console.log("!!!!!!!!!!!!!!!!!!!", taskStatus)
     // callServicePut(`/task/${id}`)
-    console.log("this is id",props.id);
-    let res = await apiservice.callServicePut(`/task/${props.id}`, { status: taskStatus === "inProgress" ? "completed" : "inProgress"})
+    console.log("this is id", props.id);
+    let res = await apiservice.callServicePut(`/task/${props.id}`, { status: taskStatus === "inProgress" ? "completed" : "inProgress" })
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@", res.data.response)
     if (res.data.response) {
-     if (taskStatus == "inProgress") {
-      setTaskStatus("completed")
-    }
-    else { 
-      setTaskStatus("inProgress")
-    } 
+      if (taskStatus == "inProgress") {
+        setTaskStatus("completed")
+      }
+      else {
+        setTaskStatus("inProgress")
+      }
     }
     else {
       alert("Something went wrong!")
@@ -72,14 +72,14 @@ function UiTabsAccordions1(props) {
     <React.Fragment>
 
       <Container fluid={true}>
-        
+
         <Row>
           <Card>
             <CardBody>
               <Row>
                 <Col>
                   <div
-                    className="accordion accordion-flush"
+                    className="accordion accordion-flush shadow-sm"
                     id="accordionFlushExample"
                   >
                     <div className="accordion-item">
@@ -100,7 +100,7 @@ function UiTabsAccordions1(props) {
 
                       <Collapse
                         isOpen={col10}
-                        className="accordion-collapse"
+                        className="accordion-collapse shadow p-3 mb-5 bg-white rounded"
                       >
                         <div className="accordion-body">
                           <div className="text-muted">
@@ -111,8 +111,8 @@ function UiTabsAccordions1(props) {
                             <p>{new Date(props.time).toLocaleTimeString('en-US')}
                               <br />
                               <strong> {taskStatus} </strong>
-                              <div className="switch-button" onClick={()=>{handleTaskStatus()}}>
-                                <input className="switch-button-checkbox" type="checkbox" checked={taskStatus!=="inProgress"}></input>
+                              <div className="switch-button" onClick={() => { handleTaskStatus() }}>
+                                <input className="switch-button-checkbox" type="checkbox" checked={taskStatus !== "inProgress"}></input>
                                 <label className="switch-button-label" htmlFor="">
                                   <span className="switch-button-label-span">inProgress</span>
                                 </label>

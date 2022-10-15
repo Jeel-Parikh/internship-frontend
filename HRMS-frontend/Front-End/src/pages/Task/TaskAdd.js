@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
     Container,
     Row,
@@ -39,14 +39,27 @@ const TasksAdd = () => {
 
     const [inputFields, setinputFields] = useState(inpRow);
     const [title, setTitle] = useState();
+    const [email, setEmail] = useState();
+    const [users, setUsers] = useState([]);
     const [description, setDescription] = useState();
     const [status, setStatus] = useState("inProgress");
     // const [editorState, setEditorState] = useState(EditorState.createEmpty())
+
+    let fun = async () => {
+        let res = await apiservice.callServiceGet("/user")
+        setUsers(res.data.result)
+    }
+    useEffect(() => {
+        fun()
+    }, [])
 
     const onEditorStateChange = (editorState) => {
         setEditorState(editorState)
     }
 
+    // let handleSelect = async (id) => {
+
+    // }
 
 
     // Function for Create Input Fields
@@ -75,7 +88,34 @@ const TasksAdd = () => {
                                     <form className="outer-repeater">
                                         <div data-repeater-list="outer-group" className="outer">
                                             <div data-repeater-item className="outer">
+
                                                 <FormGroup className="mb-4" row>
+                                                    <Label
+                                                        htmlFor="userEmail"
+                                                        className="col-form-label col-lg-2"
+                                                    >
+                                                        User Email
+                                                    </Label>
+                                                    <Col lg="10">
+                                                        <input id="userEmail" name="userEmail" className="form-control" type="text" list="detail" value={email}
+                                                            placeholder="Enter Employee Email..."
+                                                            onChange={(e) => { setEmail(e.target.value) }} />
+                                                        <datalist id="detail">
+                                                            {
+                                                                users.length !== 0 &&
+                                                                users?.map(item => {
+                                                                    return (
+                                                                        <option data-value={item._id}>{item.email}</option>
+                                                                    )
+                                                                })
+                                                            }
+
+                                                        </datalist>
+                                                    </Col>
+                                                </FormGroup>
+
+                                                <FormGroup className="mb-4" row>
+
                                                     <Label
                                                         htmlFor="taskname"
                                                         className="col-form-label col-lg-2"
@@ -105,7 +145,6 @@ const TasksAdd = () => {
                                                 <FormGroup>
                                                     <div className="mb-3">
                                                         <Label className="form-label" htmlFor="status">Status</Label>
-
                                                         <select className="form-control" name='status' onChange={(e) => { setStatus(e.target.value) }}
                                                         >
                                                             <option value="inProgress">In Progress</option>

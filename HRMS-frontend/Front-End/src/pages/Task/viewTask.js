@@ -113,11 +113,8 @@ function ViewTask(props) {
                                                 <ul className="list-unstyled chat-list" id="recent-list">
                                                     <PerfectScrollbar style={{ height: "410px" }}>
                                                         {map(users, (user) => (
-
-
                                                             <li
                                                                 key={user._id}
-
                                                             >
                                                                 <Link
                                                                     onClick={() => {
@@ -131,7 +128,6 @@ function ViewTask(props) {
 
                                                                         })
                                                                     }}
-
                                                                 >
                                                                     <div className="d-flex">
                                                                         <div className="align-self-center me-3">
@@ -139,12 +135,29 @@ function ViewTask(props) {
                                                                         </div>
 
                                                                         <div className="align-self-center me-3">
-                                                                            <img
-
-                                                                                src={service.API_URL + user.userPhoto}
-                                                                                className="rounded-circle avatar-xs"
-                                                                                alt=""
-                                                                            />
+                                                                            {!user.userPhoto ? (
+                                                                                <div className="avatar-sm mx-auto mb-4">
+                                                                                    <span
+                                                                                        className={
+                                                                                            "avatar-title rounded-circle bg-soft bg-" +
+                                                                                            user.color +
+                                                                                            " text-" +
+                                                                                            user.color +
+                                                                                            " font-size-16"
+                                                                                        }
+                                                                                    >
+                                                                                        {user.name.charAt(0)}
+                                                                                    </span>
+                                                                                </div>
+                                                                            ) : (
+                                                                                <div className="mb-4">
+                                                                                    <img
+                                                                                        className="rounded-circle avatar-sm"
+                                                                                        src={service.API_URL + user.userPhoto}
+                                                                                        alt=""
+                                                                                    />
+                                                                                </div>
+                                                                            )}
                                                                         </div>
 
                                                                         <div className="flex-grow-1 overflow-hidden">

@@ -88,9 +88,9 @@ const TasksList = props => {
 
       <Container fluid>
         <Breadcrumbs title="Tasks" breadcrumbItem="Task List" />
+        <br></br>
         <Row>
           <Col lg={12}>
-
             {map(fullResponse, (responses) => (
               <Card key={responses.date}>
                 {console.log(new Date(responses.date).toISOString().split('T')[0])}
@@ -102,7 +102,7 @@ const TasksList = props => {
                       <tbody>
                         {map(res, (task) => (
                           <tr key={task.date}>
-                            <td >
+                            {/* <td >
                               <div>
                                 {user.name}
                               </div>
@@ -116,13 +116,13 @@ const TasksList = props => {
 
 
                               </div>
-                            </td>
+                            </td> */}
                             <td>
 
 
 
 
-                              <UiTabsAccordions1 id={task._id}  title={task.title} description={task.description} time={task.date} status={task.status} />
+                              <UiTabsAccordions1 id={task._id} title={task.title} description={task.description} time={task.date} status={task.status} />
 
 
                             </td>
