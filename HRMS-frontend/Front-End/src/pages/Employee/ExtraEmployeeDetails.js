@@ -23,7 +23,7 @@ import { partnerSignup, userSchema } from "helpers/validationSchemas";
 const AddUser = props => {
 
     //meta title
-    document.title = "User Registration | BLIV Partner";
+    document.title = "User Registration | Hackathon";
 
 
     const validation = useFormik({
@@ -41,7 +41,9 @@ const AddUser = props => {
             panCard: '',
             userPhoto: '',
             ifsc: '',
-            bankName: ''
+            bankName: '',
+            salary:"",
+            lastEmployment:""
 
         },
         validationSchema: userSchema,
@@ -57,6 +59,8 @@ const AddUser = props => {
             formdata.append("bankAccount", values.bankAccount)
             formdata.append("ifsc", values.ifsc)
             formdata.append("bankName", values.bankName)
+            formdata.append("lastEmployment", values.lastEmployment)
+            formdata.append("salary", values.salary)
             formdata.append("aadharCard", aadharCard)
             formdata.append("panCard", panCard)
             formdata.append("userPhoto", userPhoto)
@@ -221,6 +225,24 @@ const AddUser = props => {
                                                     ) : null}
                                                 </div>
                                                 <div className="mb-3">
+                                                    <Label className="form-label">LastEmployment</Label>
+                                                    <Input
+                                                        name="lastEmployment"
+                                                        className="form-control"
+                                                        placeholder="Enter Last Employment Detail"
+                                                        type="text"
+                                                        onChange={validation.handleChange}
+                                                        onBlur={validation.handleBlur}
+                                                        value={validation.values.lastEmployment || ""}
+                                                        invalid={
+                                                            validation.touched.lastEmployment && validation.errors.lastEmployment ? true : false
+                                                        }
+                                                    />
+                                                    {validation.touched.lastEmployment && validation.errors.lastEmployment ? (
+                                                        <FormFeedback type="invalid">{validation.errors.lastEmployment}</FormFeedback>
+                                                    ) : null}
+                                                </div>
+                                                <div className="mb-3">
                                                     <Label className="form-label">Bank Account</Label>
                                                     <Input
                                                         name="bankAccount"
@@ -273,6 +295,24 @@ const AddUser = props => {
                                                     />
                                                     {validation.touched.bankName && validation.errors.bankName ? (
                                                         <FormFeedback type="invalid">{validation.errors.bankName}</FormFeedback>
+                                                    ) : null}
+                                                </div>
+                                                <div className="mb-3">
+                                                    <Label className="form-label">Salary</Label>
+                                                    <Input
+                                                        name="salary"
+                                                        className="form-control"
+                                                        placeholder="Enter Salary"
+                                                        type="number"
+                                                        onChange={validation.handleChange}
+                                                        onBlur={validation.handleBlur}
+                                                        value={validation.values.salary || ""}
+                                                        invalid={
+                                                            validation.touched.salary && validation.errors.salary ? true : false
+                                                        }
+                                                    />
+                                                    {validation.touched.salary && validation.errors.salary ? (
+                                                        <FormFeedback type="invalid">{validation.errors.salary}</FormFeedback>
                                                     ) : null}
                                                 </div>
                                                 <div>
