@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment ,useState,useEffect} from "react";
 import PropTypes from "prop-types";
 import {
   useTable,
@@ -117,10 +117,39 @@ const TableContainer = ({
     const page = event.target.value ? Number(event.target.value) - 1 : 0;
     gotoPage(page);
   };
-  console.log('props,', data)
+
+  let obj={}
+  // console.log('props,', data)
+  let [attendance,setattendance]=useState(obj)
+  useEffect(() => {
+    let temparr=data.map(item=>item._id )
+  
+    for (let iterator of temparr) {
+      obj[iterator]=false
+    }
+    setattendance(obj)
+  }, [])
+
+  let handleattendance=(id)=>{
+    setattendance({...attendance,id:!attendance.id})
+
+  }
+
+  let handleSelectAll= ()=>{
+    let temparr=data.map(item=>item._id )
+    
+    for (let iterator of temparr) {
+      obj[iterator]=true
+    }
+    setattendance(obj)
+  }
+
+  let handelSubmit=()=>{
+    //TODO:API Call to send attendance
+  }
   return (
     <Fragment>
-
+      
       <div className="table-responsive react-table">
         <Table bordered hover {...getTableProps()} className={className}>
           <thead className="table-light table-nowrap">
@@ -138,16 +167,27 @@ const TableContainer = ({
               </tr>
             ))}
           </thead>
-
+          
           <tbody {...getTableBodyProps()}>
+            <td className="d-flex w-100 px-2">
+            <button className="btn btn-primary bg-primary" onClick={handleSelectAll}>Select All</button>
+          </td>
+          <td></td>
+          <td></td>
+          
+          <td className="d-flex w-100 justify-content-end px-2">
+            <button className="btn btn-primary bg-primary" onClick={handelSubmit}>Submit</button>
+          </td>
+
             {page.map(row => {
               prepareRow(row);
               return (
                 <Fragment key={row.getRowProps().key}>
                   <tr>
-                    {row.cells.map(cell => {
+                    {console.log("this is cells",row.cells)}
+                    {row.cells.map((cell,index) => {
                       return (
-                        <td key={cell.id} {...cell.getCellProps()}>
+                        <td key={cell.id} {...cell.getCellProps()} onClick={()=>handleattendance(row.cells[index].row.original._id)}>
                           {cell.render("Cell")}
                         </td>
                       );

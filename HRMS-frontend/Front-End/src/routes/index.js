@@ -13,25 +13,9 @@ import Register from "../pages/Employee/AddEmployee";
 import ViewEmployees from "../pages/Employee/ViewEmployees";
 import CardEmployee from "../pages/Employee/card-Employee";
 import AddUser from "../pages/Employee/ExtraEmployeeDetails";
+import AdminViewProfile from "pages/Employee/AdminViewProfile";
 
 
-// //  // Inner Authentication
-// import Login1 from "../pages/AuthenticationInner/Login";
-// import Login2 from "../pages/AuthenticationInner/Login2";
-// import Register1 from "../pages/AuthenticationInner/Register";
-// import Register2 from "../pages/AuthenticationInner/Register2";
-// import Recoverpw from "../pages/AuthenticationInner/Recoverpw";
-// import Recoverpw2 from "../pages/AuthenticationInner/Recoverpw2";
-// import ForgetPwd1 from "../pages/AuthenticationInner/ForgetPassword";
-// import ForgetPwd2 from "../pages/AuthenticationInner/ForgetPassword2";
-// import LockScreen from "../pages/AuthenticationInner/auth-lock-screen";
-// import LockScreen2 from "../pages/AuthenticationInner/auth-lock-screen-2";
-// import ConfirmMail from "../pages/AuthenticationInner/page-confirm-mail";
-// import ConfirmMail2 from "../pages/AuthenticationInner/page-confirm-mail-2";
-// import EmailVerification from "../pages/AuthenticationInner/auth-email-verification";
-// import EmailVerification2 from "../pages/AuthenticationInner/auth-email-verification-2";
-// import TwostepVerification from "../pages/AuthenticationInner/auth-two-step-verification";
-// import TwostepVerification2 from "../pages/AuthenticationInner/auth-two-step-verification-2";
 import TaskAdd from '../pages/Task/TaskAdd'
 
 // Dashboard
@@ -57,6 +41,7 @@ const authProtectedRoutes = [
   { path: '/remaining', component: AddUser },
   { path: '/viewtask', component: ViewTask },
   { path: '/profile', component: ViewProfile },
+  // {path:'/profile' this.props.first}
   { path: '/viewtasks', component: TasksList },
   { path: '/attendance', component: Attendance },
 
@@ -65,6 +50,7 @@ const authProtectedRoutes = [
   { path: '/task', component: TaskAdd },
   { path: "/dashboard", component: Dashboard },
   { path: '/view-employee', component: ViewEmployees },
+  {path:'/admin-view-profile', component:AdminViewProfile},
   { path: "/add-employee", component: AddEmployee },
 
 
