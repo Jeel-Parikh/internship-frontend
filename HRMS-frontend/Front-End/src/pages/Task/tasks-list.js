@@ -122,7 +122,7 @@ const TasksList = props => {
 
 
 
-                              <UiTabsAccordions1 title={task.title} description={task.description} time={task.date} status={task.status} />
+                              <UiTabsAccordions1 id={task._id}  title={task.title} description={task.description} time={task.date} status={task.status} />
 
 
                             </td>

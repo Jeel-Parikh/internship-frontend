@@ -25,6 +25,7 @@ import "../../index.css"
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 import classnames from "classnames";
+import { apiservice } from "service/apiservice";
 function UiTabsAccordions1(props) {
   console.log("props", props)
 
@@ -34,7 +35,7 @@ function UiTabsAccordions1(props) {
   const [col9, setcol9] = useState(true);
   const [col10, setcol10] = useState(false);
 
-
+  const [taskStatus, setTaskStatus] = useState(props.status)
 
   const t_col9 = () => {
     setcol9(!col9);
@@ -47,18 +48,35 @@ function UiTabsAccordions1(props) {
     // setcol11(false);
   };
 
+  let handleTaskStatus = async () => {
+    // console.log("!!!!!!!!!!!!!!!!!!!", taskStatus)
+    // callServicePut(`/task/${id}`)
+    let res = await apiservice.callServicePut(`/task/${props.id}`, { status: taskStatus })
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@", res.data.response)
+    if (res.data.response) {
+     if (taskStatus == "inProgress") {
+      setTaskStatus("completed")
+    }
+    else { 
+      setTaskStatus("inProgress")
+    } 
+    }
+    else {
+      alert("Something went wrong!")
+    }
+  }
+
 
   return (
     <React.Fragment>
 
       <Container fluid={true}>
-
+        
         <Row>
           <Card>
             <CardBody>
               <Row>
                 <Col>
-
                   <div
                     className="accordion accordion-flush"
                     id="accordionFlushExample"
@@ -91,12 +109,13 @@ function UiTabsAccordions1(props) {
                             {props.description}
                             <p>{new Date(props.time).toLocaleTimeString('en-US')}
                               <br />
-                              <strong> {props.status} </strong>
-                              <div class="switch-button">
-    <input class="switch-button-checkbox" type="checkbox"></input>
-    <label class="switch-button-label" for=""><span class="switch-button-label-span">Photo</span></label>
-  </div>
-
+                              <strong> {taskStatus} </strong>
+                              <div className="switch-button" onClick={()=>{handleTaskStatus()}}>
+                                <input className="switch-button-checkbox" type="checkbox"></input>
+                                <label className="switch-button-label" htmlFor="">
+                                  <span className="switch-button-label-span">inProgress</span>
+                                </label>
+                              </div>
                             </p>
                           </div>
                         </div>
