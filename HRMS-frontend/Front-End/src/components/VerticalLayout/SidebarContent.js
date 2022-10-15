@@ -14,7 +14,7 @@ import { withTranslation } from "react-i18next";
 
 const SidebarContent = props => {
   const ref = useRef();
-  // Use ComponentDidMount and ComponentDidUpdate method symultaniously
+  // Use ComponentDidMount and ComponentDidUpdate method simultaneously
   useEffect(() => {
     const pathName = props.location.pathname;
 
