@@ -9,22 +9,28 @@ import {
   CardTitle,
   CardSubtitle,
   Container,
+  
 } from "reactstrap"
 
 import Editable from "react-bootstrap-editable"
-
+import service from  "service/constant.js"
 //Import Breadcrumb
 import Breadcrumbs from "../../components/Common/Breadcrumb"
 import { userSchema } from "helpers/validationSchemas";
+import { apiservice } from "apiservice";
+import axios from "axios";
 // import { useState } from "react"
 
-function ViewProfile() {
+function ViewProfile(props) {
+  // console.log(props.id)
+  console.log(props)
   // const [user,setUser]=useState();
 
   //meta title
   document.title = "View Profile | HRMS ";
+  
   let user = localStorage.getItem('user');
-
+  
   user = JSON.parse(user);
   const [name, setName] = useState(user.name);
   const [contactNumber, setContactNumber] = useState(user.contactNumber);
@@ -39,10 +45,25 @@ function ViewProfile() {
   // console.log(user);
 
   /** Confirm button */
+  let onSubmitHandler = (e)=>{
+    e.preventDefault();
+    console.log(typeof localStorage.getItem('user'))
+    let userdata = JSON.parse(localStorage.getItem('user'));
+    console.log("/user/"+userdata._id)
+    // console.log(data._id)
+    apiservice.callServicePut("/user/"+userdata._id , userdata).then((res)=>{
+      console.log("--------------------->",res)
+    }).catch((err)=>{
+      console.log("------------->",err)
+    })
+    
+
+    // apiservice.callServiceGet(service.API_URL+userdata._id,)
+  }
   const confirmElement = (
     <button type="submit" className="btn btn-success editable-submit btn-sm me-1"><i className="mdi mdi-check"></i></button>
   );
-
+    
   /** Cancel button */
   const cancelElement = (
     <button type="button" className="btn btn-danger editable-cancel btn-sm"><i className="mdi mdi-close"></i></button>
@@ -273,8 +294,11 @@ function ViewProfile() {
                 <Button
                   type="submit"
                   color="primary"
+                  onClick={onSubmitHandler}
+                  
                   className="btn btn-primary btn-block">
                   Update
+                  
                 </Button>
 
               </div>

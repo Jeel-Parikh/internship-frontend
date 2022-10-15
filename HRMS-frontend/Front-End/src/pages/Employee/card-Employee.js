@@ -1,12 +1,27 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardFooter, Col, UncontrolledTooltip } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Col,
+  UncontrolledTooltip,
+} from "reactstrap";
 import { isEmpty, size, map } from "lodash";
-import service from 'service/constant';
-const CardEmployee = props => {
+import ViewProfile from "pages/Dashboard/ViewProfile";
+import service from "service/constant";
+const CardEmployee = (props) => {
   const { user } = props;
+  let profileLinkButton = ()=>{
+    // localStorage.setItem('profile':user._id)
+    console.log(user._id)
+    localStorage.setItem("profile-employee",user._id)
 
+
+
+  }
+  
   return (
     <React.Fragment>
       <Col xl="3" sm="6">
@@ -93,11 +108,20 @@ const CardEmployee = props => {
                 </Link>
               </div>
               <div className="flex-fill">
-                <Link to="#" id={"profile" + user.id}>
+                <Link
+                to="/admin-view-profile"
+                  onClick={(e) => {
+                    console.log("Clicked");
+                    profileLinkButton();
+                    
+                   
+                  }}
+                  id={"profile" + user._id}
+                >
                   <i className="bx bx-user-circle" />
                   <UncontrolledTooltip
                     placement="top"
-                    target={"profile" + user.id}
+                    target={"profile" + user._id}
                   >
                     Profile
                   </UncontrolledTooltip>
@@ -112,7 +136,7 @@ const CardEmployee = props => {
 };
 
 CardEmployee.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
 };
 
 export default CardEmployee;
