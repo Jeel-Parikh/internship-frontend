@@ -49,9 +49,10 @@ function UiTabsAccordions1(props) {
   };
 
   let handleTaskStatus = async () => {
-    // console.log("!!!!!!!!!!!!!!!!!!!", taskStatus)
+    console.log("!!!!!!!!!!!!!!!!!!!", taskStatus)
     // callServicePut(`/task/${id}`)
-    let res = await apiservice.callServicePut(`/task/${props.id}`, { status: taskStatus })
+    console.log("this is id",props.id);
+    let res = await apiservice.callServicePut(`/task/${props.id}`, { status: taskStatus === "inProgress" ? "completed" : "inProgress"})
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!@", res.data.response)
     if (res.data.response) {
      if (taskStatus == "inProgress") {
@@ -111,7 +112,7 @@ function UiTabsAccordions1(props) {
                               <br />
                               <strong> {taskStatus} </strong>
                               <div className="switch-button" onClick={()=>{handleTaskStatus()}}>
-                                <input className="switch-button-checkbox" type="checkbox"></input>
+                                <input className="switch-button-checkbox" type="checkbox" checked={taskStatus!=="inProgress"}></input>
                                 <label className="switch-button-label" htmlFor="">
                                   <span className="switch-button-label-span">inProgress</span>
                                 </label>
