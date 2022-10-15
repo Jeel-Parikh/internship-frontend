@@ -117,8 +117,9 @@ const TableContainer = ({
     const page = event.target.value ? Number(event.target.value) - 1 : 0;
     gotoPage(page);
   };
+
   let obj={}
-  console.log('props,', data)
+  // console.log('props,', data)
   let [attendance,setattendance]=useState(obj)
   useEffect(() => {
     let temparr=data.map(item=>item._id )
@@ -132,6 +133,15 @@ const TableContainer = ({
   let handleattendance=(id)=>{
     setattendance({...attendance,id:!attendance.id})
 
+  }
+
+  let handleSelectAll= ()=>{
+    let temparr=data.map(item=>item._id )
+    
+    for (let iterator of temparr) {
+      obj[iterator]=true
+    }
+    setattendance(obj)
   }
 
   let handelSubmit=()=>{
@@ -160,7 +170,7 @@ const TableContainer = ({
           
           <tbody {...getTableBodyProps()}>
             <td className="d-flex w-100 px-2">
-            <button className="btn btn-primary bg-primary">Select All</button>
+            <button className="btn btn-primary bg-primary" onClick={handleSelectAll}>Select All</button>
           </td>
           <td></td>
           <td></td>
