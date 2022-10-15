@@ -21,6 +21,7 @@ const ViewEmployees = () => {
 
   useEffect(() => {
     console.log(localStorage.getItem('token'));
+    
     apiservice.callServiceGet(USERS)
       .then((user) => {
         console.log(user.data.result);
