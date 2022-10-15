@@ -14,6 +14,12 @@ import { withTranslation } from "react-i18next";
 
 const SidebarContent = props => {
   const ref = useRef();
+  let user = localStorage.getItem('user')
+  user = JSON.parse(user);
+  // console.log(user.designation)
+  let isadmin = user.designation==='admin'?true:false
+  // console.log("admin:",isadmin)
+  // if(user.desig)
   // Use ComponentDidMount and ComponentDidUpdate method simultaneously
   useEffect(() => {
     const pathName = props.location.pathname;
@@ -92,14 +98,16 @@ const SidebarContent = props => {
       <SimpleBar className="h-100" ref={ref}>
         <div id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
-            <li className="menu-title">{props.t("Menu")} </li>
+            <li className="menu-title">{isadmin?props.t("Menu(Admin)"):props.t("Menu")} </li>
             <li>
               <Link to="/dashboard" >
                 <span>{props.t("Dashboards")}</span>
               </Link>
 
             </li>
-            <li>
+            {
+              isadmin?
+              <li>
               <Link to="/view-employee" className="has-arrow ">
                 <i className="bx bxs-user-detail"></i>
                 <span>{props.t("Employee")}</span>
@@ -113,8 +121,8 @@ const SidebarContent = props => {
                   <Link to="/add-employee">{props.t("Add Employee")}</Link>
                 </li>
               </ul>
-            </li>
-
+            </li>:<></>
+}
             <li>
               <Link to="/leave-application">
                 <i className="bx bx-file"></i>
@@ -122,12 +130,12 @@ const SidebarContent = props => {
               </Link>
 
             </li>
-            <li>
+           {isadmin? <li>
               <Link to="/attendance" >
                 <span>{props.t("Mark Attendance")}</span>
               </Link>
 
-            </li>
+            </li>:<></>}
 
             <li>
               <Link to="/#" className="has-arrow ">
@@ -154,16 +162,16 @@ const SidebarContent = props => {
               </Link>
               <ul className="sub-menu">
 
-                <li>
-                  <Link to="/viewtask">{props.t("View Task(Admin)")}</Link>
-                </li>
-                <li>
-                  <Link to="/viewtasks">{props.t("View Task(Employee)")}</Link>
-                </li>
-
-                <li>
+                {isadmin?<li>
+                  <Link to="/viewtask">{props.t("View Task(")}</Link>
+                </li>:<></>
+                }{!isadmin?<li>
+                  <Link to="/viewtasks">{props.t("View Task")}</Link>
+                </li>:<></>
+}
+                {isadmin?<li>
                   <Link to="/task">{props.t("Create Task")}</Link>
-                </li>
+                </li>:<></>}
               </ul>
             </li>
 
