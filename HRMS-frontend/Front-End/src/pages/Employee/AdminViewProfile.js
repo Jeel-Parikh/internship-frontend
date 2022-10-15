@@ -48,7 +48,7 @@ function AdminViewProfile() {
       
       setUserDetails(res.data.result);
     })
-})
+},[])
   
 
     // apiservice.callServiceGet(service.API_URL+userdata._id,)
