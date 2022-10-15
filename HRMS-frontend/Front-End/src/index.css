@@ -90,18 +90,121 @@
   position: relative;
 }
 
-.attendance-container{
+.attendance-container {
   background-color: white;
   margin-left: 20px;
   height: 100vh;
 }
 
-.attendace-grid{
+.attendace-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
 
-.att-box{
+.att-box {
   border: 1px solid black;
   height: 70px;
+}
+
+.applyLeaveWrapper {
+  /* outline: 2px solid #000; */
+  height: 20vh;
+  padding: 5px;
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+.leaveHistory {
+  margin-top: 50px;
+}
+
+.leaveDateLabel {
+  margin: 10px;
+  margin-top: 12px;
+}
+
+.leaveDate {
+  width: fit-content;
+  height: fit-content;
+  margin: 10px;
+}
+
+.leaveReasonLabel {
+  margin: 10px;
+  margin-top: 12px;
+}
+
+.leaveReason {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+.leaveDateWrapper {
+  display: flex;
+}
+
+.leaveReasonWrapper {
+  display: flex;
+}
+
+.leaveBtn {
+  margin: 10px;
+  border: none;
+  border-radius: 15px;
+  font-size: 18px;
+  background-color: #155FFF;
+  color: white;
+  padding: 6px;
+}
+
+.applyLeaveWrapperHistory {
+  /* outline: 2px solid #000; */
+  height: 20vh;
+  padding: 5px;
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+.leaveDateLabelHistory {
+  margin: 10px;
+  margin-top: 12px;
+}
+
+.leaveDateHistory {
+  /* outline: 2px solid black; */
+  width: fit-content;
+  height: fit-content;
+  margin-top: 12px;
+}
+
+.leaveReasonLabelHistory {
+  margin: 10px;
+  margin-top: 12px;
+}
+
+.leaveReasonHistory {
+  width: 100%;
+  border: none;
+  margin-top: 12px;
+  border-radius: 10px;
+}
+
+.leaveDateWrapperHistory {
+  display: flex;
+}
+
+.leaveReasonWrapperHistory {
+  display: flex;
+}
+
+.leaveStatus h5 {
+  margin: 10px;
+  color: red
+}
+
+.leaveCard {
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
