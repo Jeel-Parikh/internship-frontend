@@ -28,6 +28,7 @@ import ViewTask from "pages/Task/viewTask";
 import ViewProfile from "pages/Dashboard/ViewProfile";
 import TasksList from "pages/Task/tasks-list";
 import Attendance from "pages/Attendance/EmployeeAttendance";
+import ViewAttendance from "pages/Attendance/ViewAttendance";
 // import PostJob from "../pages/Job/PostJob";
 
 
@@ -52,6 +53,7 @@ const authProtectedRoutes = [
   { path: '/view-employee', component: ViewEmployees },
   {path:'/admin-view-profile', component:AdminViewProfile},
   { path: "/add-employee", component: AddEmployee },
+  { path: "/ViewAttendace/:id", component: ViewAttendance },
 
 
   // this route should be at the end of all other routes

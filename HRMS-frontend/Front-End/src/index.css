@@ -89,3 +89,19 @@
 .switch-button-checkbox+.switch-button-label .switch-button-label-span {
   position: relative;
 }
+
+.attendance-container{
+  background-color: white;
+  margin-left: 20px;
+  height: 100vh;
+}
+
+.attendace-grid{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.att-box{
+  border: 1px solid black;
+  height: 70px;
+}
