@@ -39,14 +39,15 @@ function AdminViewProfile() {
   const [ifsc, setIfsc] = useState();
   const [userDetails,setUserDetails] = useState({})
 
-  apiservice.callServiceGet("/user/"+user).then((res)=>{
-    
-    console.log("-------->",res.data);
-    console.log(res.data.result._id)
+  useEffect(()=>{
 
-    setUserDetails(res.data.result);
-
-
+    apiservice.callServiceGet("/user/"+user).then((res)=>{
+      
+      console.log("-------->",res.data);
+      console.log(res.data.result._id)
+      
+      setUserDetails(res.data.result);
+    })
 })
   
 

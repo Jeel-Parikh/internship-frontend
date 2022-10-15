@@ -11,6 +11,7 @@ import {
 } from "react-table";
 import { Table, Row, Col, Button, Input } from "reactstrap";
 import { Filter, DefaultColumnFilter } from "./filters";
+import { apiservice } from "apiservice";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -120,32 +121,62 @@ const TableContainer = ({
 
   let obj={}
   // console.log('props,', data)
-  let [attendance,setattendance]=useState(obj)
+  let [attendance,setattendance]=useState(obj);
+  let [userdata,setuserdata]=useState([])
   useEffect(() => {
     let temparr=data.map(item=>item._id )
   
     for (let iterator of temparr) {
       obj[iterator]=false
     }
+    console.log("data",data);
     setattendance(obj)
-  }, [])
+setuserdata(data)
+    
+  }, [data])
 
   let handleattendance=(id)=>{
-    setattendance({...attendance,id:!attendance.id})
-
+    setattendance({...attendance,[id]:!attendance[id]})
+console.log("clicked");
   }
 
+  let [selectall,setselectedall]=useState(false)
   let handleSelectAll= ()=>{
+    if(selectall){
+      let temparr=data.map(item=>item._id )
+      
+      for (let iterator of temparr) {
+        obj[iterator]=false
+      }
+      setattendance(obj)
+      setselectedall(false)
+    }
+    else{   
     let temparr=data.map(item=>item._id )
     
     for (let iterator of temparr) {
       obj[iterator]=true
     }
     setattendance(obj)
+    setselectedall(true)
+  }
   }
 
-  let handelSubmit=()=>{
+  let handelSubmit=async()=>{
     //TODO:API Call to send attendance
+    // let res=await apiservice.callServicePostFormdata("localhost:3001/attendance/",{data:attendance})
+
+    let temp=await fetch("localhost:3001/attendance", {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": localStorage.getItem('token')
+      },
+      body:JSON.stringify({"data":attendance})
+    })
+
+      let responce=await temp.json()
+    console.log("this is res",responce);
   }
   return (
     <Fragment>
@@ -179,12 +210,11 @@ const TableContainer = ({
             <button className="btn btn-primary bg-primary" onClick={handelSubmit}>Submit</button>
           </td>
 
-            {page.map(row => {
+            {/* {page.map(row => {
               prepareRow(row);
               return (
                 <Fragment key={row.getRowProps().key}>
                   <tr>
-                    {console.log("this is cells",row.cells)}
                     {row.cells.map((cell,index) => {
                       return (
                         <td key={cell.id} {...cell.getCellProps()} onClick={()=>handleattendance(row.cells[index].row.original._id)}>
@@ -195,7 +225,21 @@ const TableContainer = ({
                   </tr>
                 </Fragment>
               );
-            })}
+            })} */}
+
+            {
+
+              userdata.map(item=>{
+                return(
+                  <tr key={item._id}>
+              <td><input type="checkbox" name={item._id} id=""  onClick={()=>handleattendance(item._id)} checked={attendance[item._id]}/></td>
+              <td>{item.name}</td>
+              <td>{item.designation}</td>
+              <td>{item.email}</td>
+            </tr>
+              )
+              })
+            }
           </tbody>
         </Table>
       </div>
