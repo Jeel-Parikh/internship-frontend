@@ -24,16 +24,17 @@ const ProfileMenu = props => {
 
   // const [username, setusername] = useState("Admin");
   const [user, setUser] = useState({});
+  const [userName, setuserName] = useState("")
 
-  
-  useEffect(() =>{
+
+  useEffect(() => {
     console.log("In use effect");
     let user = JSON.parse(localStorage.getItem('user'));
-    // console.log("user>>>>",user);
+    console.log("user>>>>==============",user);
     setUser(user);
+    setuserName(user.name)
 
-  
-},[]);
+  }, []);
   return (
     <React.Fragment>
       <Dropdown
@@ -46,11 +47,24 @@ const ProfileMenu = props => {
           id="page-header-user-dropdown"
           tag="button"
         >
-          <img
+          {/* <img
             className="rounded-circle header-profile-user"
             src={service.API_URL + user.userPhoto}
             alt="Header Avatar"
-          />
+          /> */}
+          <div className="avatar-sm mx-auto mb-4">
+            <span
+              className={
+                "avatar-title rounded-circle bg-soft bg-" +
+                "blue" +
+                "text-" +
+                "white" +
+                " font-size-16"
+              }
+            >
+              {userName.charAt(0)}
+            </span>
+          </div>
           <span className="d-none d-xl-inline-block ms-2 me-1">{user.name}</span>
           <i className="mdi mdi-chevron-down d-none d-xl-inline-block" />
         </DropdownToggle>
@@ -60,7 +74,7 @@ const ProfileMenu = props => {
             <i className="bx bx-user font-size-16 align-middle me-1" />
             {props.t("Profile")}{" "}
           </DropdownItem>
-         
+
           <div className="dropdown-divider" />
           <Link to="/logout" className="dropdown-item">
             <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger" />

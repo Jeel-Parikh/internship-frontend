@@ -50,7 +50,7 @@ function AdminLeaveApplication(){
                                         <p className="leaveReasonHistory">{leave.reason}</p>
                                     </div>
                                     <div className="mb-3">
-                                   < input id="adminRespoonse" name="response" className="form-control" type="text" list="details" value={response}
+                                   < input id="adminRespoonse" name="response" className="" type="text" list="details" value={response}
                                                             placeholder="Enter Response"
                                                             onChange={(e) => { setResponse(e.target.value) }} />
 
