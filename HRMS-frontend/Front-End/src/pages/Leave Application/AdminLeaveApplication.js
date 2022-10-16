@@ -20,7 +20,7 @@ function AdminLeaveApplication(){
     return(
         <>
                    
-                   <div className="">
+                   <div className="page-content">
                     <br></br>
                     <br></br>
                         <h2> Show applications </h2>
@@ -50,14 +50,14 @@ function AdminLeaveApplication(){
                                         <p className="leaveReasonHistory">{leave.reason}</p>
                                     </div>
                                     <div className="mb-3">
-                                   < input id="userEmail" name="response" className="form-control" type="text" list="details" value={response}
-                                                            placeholder="Enter Employee Email..."
+                                   < input id="adminRespoonse" name="response" className="form-control" type="text" list="details" value={response}
+                                                            placeholder="Enter Response"
                                                             onChange={(e) => { setResponse(e.target.value) }} />
 
                                                             <datalist id="details">
-                                                                <option data-value="pending">Pending</option>
-                                                                <option data-value="approved">approved</option>
-                                                                <option data-value="denied">denied</option>
+                                                                <option value="pending">pending</option>
+                                                                <option value="approved">approved</option>
+                                                                <option value="denied">denied</option>
                                                             </datalist>
                                                        
                                 {/* <Label className="form-label" htmlFor="status">Response</Label>

@@ -10,7 +10,7 @@ const LeaveApplication = () => {
     const [leaves, setleaves] = useState([])
     const [startDate,setStartDate] = useState("");
     const [endDate,setEndDate] = useState("");
-    const [title,setTitle] = useState("");
+    const [type,setType] = useState("");
     const [reason,setReason] = useState("")
     
 
@@ -27,25 +27,18 @@ const LeaveApplication = () => {
     const [leaveDate, setleaveDate] = useState("")
     const [leaveReason, setleaveReason] = useState("")
 
-    let handleChangeDate = (e) => {
-        // console.log(e.target.value);
-        setleaveDate(e.target.value)
-    }
-
-    let handleChangeReason = (e) => {
-        // console.log(e.target.value);
-        setleaveReason(e.target.value)
-    }
+    
 
     let {_id} = JSON.parse(localStorage.getItem('user'))
 
     let handleSubmit = (e) => {
         e.preventDefault();
-        console.log(startDate,endDate,title,reason)
+        console.log(startDate,endDate,type,reason)
         console.log(leaveDate, leaveReason);
-        apiservice.callServicePostFormdata('/leave/'+_id ,{startDate:startDate,endDate:endDate,title:title,reason:reason} )
+        apiservice.callServicePostFormdata('/leave/'+_id ,{startDate:startDate,endDate:endDate,type:type,reason:reason} )
         // TODO : API Call for leave Application
     }
+    let typeOfLeaves = {PL:'Parental Leave',EL:'Earned Leave',AL:'Annual Leave',CL:'Calsual Leave',SL:'Sick Leave',ML:'Maternity Leave'}
 
     return (
         <>
@@ -53,6 +46,7 @@ const LeaveApplication = () => {
             <div className="page-content">
                 <Container fluid>
                     <h2> Apply for Leave </h2>
+
                     
                     <div className="applyLeaveWrapper">
                         <div className="leaveDateWrapper">
@@ -66,12 +60,19 @@ const LeaveApplication = () => {
                                 setEndDate(e.target.value)
                             }} type="date" />
                         </div>
-                        <div className="leaveReasonWrapper">
-                            <label className="leaveReasonLabel" htmlFor="leaveReason">Title</label>
-                            <input className="leaveReason" name = "title" value={title} onChange={(e)=>{
-                                setTitle(e.target.value)}} type="text" />
-                        </div>
-                        
+                        <div>
+                        < input id="typeofleave" name="type" className="leaveDate" type="text" list="details" value={type}
+                                                            placeholder="Select The type of leave"
+                                                            onChange={(e) => { setType(e.target.value) }} />
+
+                                                            <datalist id="details">
+                                                                <option value="EL">Earned Leave</option>
+                                                                <option value="AL">Annual Leave</option>
+                                                                <option value="CL">Calsual Leave</option>
+                                                                <option value="SL">Sick Leave</option>
+                                                                <option value="ML">Maternity Leave</option>
+                                                            </datalist>
+                        </div>          
                         
                         <div className="leaveReasonWrapper">
                             <label className="leaveReasonLabel" htmlFor="leaveReason">Reason</label>
@@ -99,6 +100,15 @@ const LeaveApplication = () => {
                                         <label className="leaveDateLabelHistory" htmlFor="leaveDate">Date</label>
                                         <p className="leaveDateHistory">{leave.startDate.slice(0, 10)}</p>
                                     </div>
+                                    <div className="leaveDateWrapperHistory">
+                                        <label className="leaveDateLabelHistory" htmlFor="leaveDate">Date</label>
+                                        <p className="leaveDateHistory">{leave.startDate.slice(0, 10)}</p>
+                                    </div>
+                                    <div className="leaveDateWrapperHistory">
+                                        <label className="leaveDateLabelHistory" htmlFor="leaveDate">Type</label>
+                                        <p className="leaveDateHistory"> {typeOfLeaves[leave.type]}</p>
+                                    </div>
+                                    
                                     <div className="leaveReasonWrapperHistory">
                                         <label className="leaveReasonLabelHistory" htmlFor="leaveReason">Reason</label>
                                         <p className="leaveReasonHistory">{leave.reason}</p>
