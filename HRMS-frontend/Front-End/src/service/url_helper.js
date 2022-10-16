@@ -7,10 +7,10 @@ let USER_ID
 export const USERS = '/user';
 
 // if (localStorage.getItem('token'))
-export let getUrlWithId = (URL) => {
+export let getUrlWithId = (URL,id) => {
 
-
-    return (URL + "/" + JSON.parse(localStorage.getItem('user'))._id)
+console.log("this is id",id);
+    return (URL + "/" + id)
 }
 // export const TASK_ADD = ''
 

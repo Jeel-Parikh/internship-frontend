@@ -94,18 +94,18 @@ const TasksAdd = () => {
                                                         htmlFor="userEmail"
                                                         className="col-form-label col-lg-2"
                                                     >
-                                                        User Email
+                                                        UserId
                                                     </Label>
                                                     <Col lg="10">
                                                         <input id="userEmail" name="userEmail" className="form-control" type="text" list="detail" value={email}
-                                                            placeholder="Enter Employee Email..."
-                                                            onChange={(e) => { setEmail(e.target.value) }} />
+                                                            placeholder="Enter Employee UserID..."
+                                                            onChange={(e) => {console.log(e.target.value); setEmail(e.target.value) }} />
                                                         <datalist id="detail">
                                                             {
                                                                 users.length !== 0 &&
                                                                 users?.map(item => {
                                                                     return (
-                                                                        <option data-value={item._id}>{item.email}</option>
+                                                                        <option value={item._id}>{item.email}</option>
                                                                     )
                                                                 })
                                                             }
@@ -164,7 +164,8 @@ const TasksAdd = () => {
                                         <Col lg="10">
                                             <Button type="submit" color="primary" onClick={(e) => {
                                                 e.preventDefault();
-                                                apiservice.callServicePostFormdata(getUrlWithId(TASK_ADD),
+                                                console.log("task add",TASK_ADD);
+                                                apiservice.callServicePostFormdata(getUrlWithId(TASK_ADD,email),
                                                     { title: title, description: description, status: status }).then(() => {
                                                         showToast("Success", 'Task added Successfully');
                                                         setTimeout(() => { window.location.href = 'http://localhost:4400/viewtasks' }, 500);
