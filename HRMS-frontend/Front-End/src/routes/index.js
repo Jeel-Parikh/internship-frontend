@@ -55,7 +55,7 @@ const authProtectedRoutes = [
   { path: '/admin-view-profile', component: AdminViewProfile },
   { path: "/add-employee", component: AddEmployee },
   { path: "/leave-application", component: LeaveApplication },
-  { path: "/ViewAttendace", component: ViewAttendance },
+  { path: "/ViewAttendace/:id", component: ViewAttendance },
 
 
   // this route should be at the end of all other routes

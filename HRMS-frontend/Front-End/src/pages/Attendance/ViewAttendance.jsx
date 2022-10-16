@@ -7,7 +7,8 @@ import {
 } from "reactstrap"
 const ViewAttendance = () => {
 
-    let { _id } = JSON.parse(localStorage.getItem("user"))
+    let { id:_id } = useParams()
+    // let { _id } = JSON.parse(localStorage.getItem("user"))
     function daysInMonth(month, year) {
         return new Date(year, month, 0).getDate();
     }
@@ -67,24 +68,24 @@ const ViewAttendance = () => {
                 <Container fluid>
 
                     <div className='attendace-grid'>
-                        <div>Sunday</div>
-                        <div>Monday</div>
-                        <div>Tuseday</div>
-                        <div>Wednessday</div>
-                        <div>Thursday</div>
-                        <div>Friday</div>
-                        <div>Saturday</div>
+                        <div className='week-days'>Sunday</div>
+                        <div className='week-days'>Monday</div>
+                        <div className='week-days'>Tuseday</div>
+                        <div className='week-days'>Wednessday</div>
+                        <div className='week-days'>Thursday</div>
+                        <div className='week-days'>Friday</div>
+                        <div className='week-days'>Saturday</div>
                         {
                             daysarr.map(item => {
                                 if (item === 0) {
                                     return (
-                                        <div className='att-box' style={{ background: "gray" }}></div>
+                                        <div className='att-box blank-date' ></div>
                                         )
                                     }else{
                                        return (
                                            dateobj[item]?
-                                           <div className='att-box' style={{ background: "green" }}>{item}</div>:
-                                           <div className='att-box' style={{ background: "red" }}>{item}</div>
+                                           <div className='att-box present-date' >{item}</div>:
+                                           <div className='att-box absent-date' >{item}</div>
                                            )
                                 }
                             })
