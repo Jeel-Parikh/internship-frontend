@@ -175,7 +175,7 @@ const TasksAdd = () => {
                                                 apiservice.callServicePostFormdata(getUrlWithId(TASK_ADD),
                                                     { title: title, description: description, status: status }).then(() => {
                                                         showToast("Success", 'Task added Successfully');
-                                                        setTimeout(() => { window.location.href = 'http://localhost:4400/viewtasks' }, 500);
+                                                        // setTimeout(() => { window.location.href = 'http://localhost:4400/viewtasks' }, 500);
 
                                                     }).catch(() => { showToast("error", 'Something went wrong'); })
                                             }}>

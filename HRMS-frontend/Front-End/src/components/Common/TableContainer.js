@@ -177,7 +177,7 @@ const TableContainer = ({
 
   let handelSubmit = async () => {
     console.log("-0-0-0", attendance);
-    axios.post("http://localhost:3001/attendance", { data: attendance, date: selecteddate }, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
+    axios.post("http://localhost:3001/attendance", { data: attendance, date: format(selecteddate, 'yyyy-MM-dd') }, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
       .then((res) => {
         console.log(res)
         showToast("success", "Success", "Attendance Marked")
