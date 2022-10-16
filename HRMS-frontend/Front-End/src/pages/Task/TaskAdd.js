@@ -43,10 +43,17 @@ const TasksAdd = () => {
     const [users, setUsers] = useState([]);
     const [description, setDescription] = useState();
     const [status, setStatus] = useState("inProgress");
+    const [emailtoid,setemailtoid]=useState({})
     // const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
     let fun = async () => {
         let res = await apiservice.callServiceGet("/user")
+        let obj={}
+        for (const iterator of res.data.result) {
+            obj[iterator.email]=iterator._id
+        }
+        setemailtoid(obj)
+        console.log("this is user email to id obj",obj);
         setUsers(res.data.result)
     }
     useEffect(() => {
@@ -105,7 +112,7 @@ const TasksAdd = () => {
                                                                 users.length !== 0 &&
                                                                 users?.map(item => {
                                                                     return (
-                                                                        <option value={item._id}>{item.email}</option>
+                                                                        <option value={item.email}>{item.email}</option>
                                                                     )
                                                                 })
                                                             }
@@ -164,8 +171,8 @@ const TasksAdd = () => {
                                         <Col lg="10">
                                             <Button type="submit" color="primary" onClick={(e) => {
                                                 e.preventDefault();
-                                                console.log("task add",TASK_ADD);
-                                                apiservice.callServicePostFormdata(getUrlWithId(TASK_ADD,email),
+                                                console.log("task add",emailtoid[email]);
+                                                apiservice.callServicePostFormdata(getUrlWithId(TASK_ADD,emailtoid[email]),
                                                     { title: title, description: description, status: status }).then(() => {
                                                         showToast("Success", 'Task added Successfully');
                                                         setTimeout(() => { window.location.href = 'http://localhost:4400/viewtasks' }, 500);
