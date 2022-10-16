@@ -1,4 +1,4 @@
-import React, { Fragment ,useState,useEffect} from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import {
@@ -14,7 +14,8 @@ import { Table, Row, Col, Button, Input } from "reactstrap";
 import { Filter, DefaultColumnFilter } from "./filters";
 import { apiservice } from "apiservice";
 import showToast from "helpers/Toast";
-
+import DatePicker from 'react-date-picker';
+import { format } from 'date-fns'
 // Define a default UI for filtering
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -121,63 +122,107 @@ const TableContainer = ({
     gotoPage(page);
   };
 
-  let obj={}
+  let obj = {}
   // console.log('props,', data)
-  let [attendance,setattendance]=useState(obj);
-  let [userdata,setuserdata]=useState([])
+  let [selecteddate, setselecteddate] = useState(new Date())
+  let [attendance, setattendance] = useState(obj);
+  let [userdata, setuserdata] = useState([]);
+  let [oldattendancedata,setoldattendancedata]=useState({})
   useEffect(() => {
-    let temparr=data.map(item=>item._id )
-  
+    let temparr = data.map(item => item._id)
+
     for (let iterator of temparr) {
-      obj[iterator]=false
+      obj[iterator] = false
     }
-    console.log("data",data);
+    console.log("data", data);
     setattendance(obj)
-setuserdata(data)
-    
+    setoldattendancedata(obj)
+    setuserdata(data)
+
   }, [data])
 
-  let handleattendance=(id)=>{
-    setattendance({...attendance,[id]:!attendance[id]})
-console.log("clicked");
+
+
+  let handleattendance = (id) => {
+    setattendance({ ...attendance, [id]: !attendance[id] })
+    console.log("clicked");
   }
 
-  let [selectall,setselectedall]=useState(false)
-  let handleSelectAll= ()=>{
-    if(selectall){
-      let temparr=data.map(item=>item._id )
-      
+  let handleselecteddatechange = (d) => {
+    console.log(format(d, 'yyyy-MM-dd'));
+    setselecteddate(d)
+  }
+
+  let [selectall, setselectedall] = useState(false)
+  let handleSelectAll = () => {
+    if (selectall) {
+      let temparr = data.map(item => item._id)
+
       for (let iterator of temparr) {
-        obj[iterator]=false
+        obj[iterator] = false
       }
       setattendance(obj)
       setselectedall(false)
     }
-    else{   
-    let temparr=data.map(item=>item._id )
-    
-    for (let iterator of temparr) {
-      obj[iterator]=true
+    else {
+      let temparr = data.map(item => item._id)
+
+      for (let iterator of temparr) {
+        obj[iterator] = true
+      }
+      setattendance(obj)
+      setselectedall(true)
     }
-    setattendance(obj)
-    setselectedall(true)
-  }
   }
 
-  let handelSubmit=async()=>{
-    console.log("-0-0-0",attendance);
-    axios.post("http://localhost:3001/attendance", {data:attendance}, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
-                .then((res) => { 
-                  console.log(res)
-                  showToast("success", "Success", "Attendance Marked")
-                })
-                .catch((e) => { console.log(e) })
-
-    
+  let handelSubmit = async () => {
+    console.log("-0-0-0", attendance);
+    axios.post("http://localhost:3001/attendance", { data: attendance, date: format(selecteddate, 'yyyy-MM-dd') }, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
+      .then((res) => {
+        console.log(res)
+        showToast("success", "Success", "Attendance Marked")
+      })
+      .catch((e) => { console.log(e) })
   }
+  useEffect(() => {
+    axios.get(`http://localhost:3001/attendance/date/${selecteddate}`, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
+      .then((res) => {
+        console.log("this is after selcted date chnage", res)
+        if (res.data.count !== 0) {
+          let obj = {};
+          for (let iterator of res.data.result) {
+            obj[iterator.userId._id] = iterator.status
+          }
+          setattendance(obj)
+          console.log("tis is obj", obj, userdata);
+        }else{
+          setattendance(oldattendancedata)
+        }
+      })
+      .catch((e) => { console.log(e) })
+  }, [selecteddate])
+  useEffect(() => {
+    console.log("hey this is something");
+    axios.get(`http://localhost:3001/attendance/date/${new Date()}`, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
+      .then((res) => {
+        console.log("this is res after gettting current selected date ", res)
+        if (res.data.count !== 0) {
+          let obj = {};
+          for (let iterator of res.data.result) {
+            obj[iterator.userId._id] = iterator.status
+          }
+          setattendance(obj)
+          console.log("tis is obj", obj, userdata);
+        }else{
+          setattendance(oldattendancedata)
+        }
+      })
+      .catch((e) => { console.log(e, "hey this is error"); })
+  }, [])
+
   return (
     <Fragment>
-      
+
       <div className="table-responsive react-table">
         <Table bordered hover {...getTableProps()} className={className}>
           <thead className="table-light table-nowrap">
@@ -195,17 +240,17 @@ console.log("clicked");
               </tr>
             ))}
           </thead>
-          
+
           <tbody {...getTableBodyProps()}>
             <td className="d-flex w-100 px-2">
-            <button className="btn btn-primary bg-primary" onClick={handleSelectAll}>Select All</button>
-          </td>
-          <td></td>
-          <td></td>
-          
-          <td className="d-flex w-100 justify-content-end px-2">
-            <button className="btn btn-primary bg-primary" onClick={handelSubmit}>Submit</button>
-          </td>
+              <button className="btn btn-primary bg-primary" onClick={handleSelectAll}>Select All</button>
+            </td>
+            <td></td>
+            <td></td>
+
+            <td className="d-flex w-100 justify-content-end px-2">
+              <button className="btn btn-primary bg-primary" onClick={handelSubmit}>Submit</button>
+            </td>
 
             {/* {page.map(row => {
               prepareRow(row);
@@ -226,19 +271,21 @@ console.log("clicked");
 
             {
 
-              userdata.map(item=>{
-                return(
+              userdata.map(item => {
+                return (
                   <tr key={item._id}>
-              <td><input type="checkbox" name={item._id} id=""  onClick={()=>handleattendance(item._id)} checked={attendance[item._id]}/></td>
-              <td>{item.name}</td>
-              <td>{item.designation}</td>
-              <td>{item.email}</td>
-            </tr>
-              )
+                    <td><input type="checkbox" name={item._id} id="" onClick={() => handleattendance(item._id)} checked={attendance[item._id]} /></td>
+                    <td>{item.name}</td>
+                    <td>{item.designation}</td>
+                    <td>{item.email}</td>
+                  </tr>
+                )
               })
             }
           </tbody>
         </Table>
+
+        <DatePicker maxDate={new Date()} format={"y-MM-dd"} value={selecteddate} onChange={(value) => handleselecteddatechange(value)} />
       </div>
 
       <Row className="justify-content-md-end justify-content-center align-items-center">
