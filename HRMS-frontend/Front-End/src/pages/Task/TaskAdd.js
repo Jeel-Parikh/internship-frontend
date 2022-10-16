@@ -112,7 +112,7 @@ const TasksAdd = () => {
                                                                 users.length !== 0 &&
                                                                 users?.map(item => {
                                                                     return (
-                                                                        <option value={item.email}>{item.email}</option>
+                                                                        <option value={item._id}>{item.email}</option>
                                                                     )
                                                                 })
                                                             }
@@ -172,7 +172,7 @@ const TasksAdd = () => {
                                             <Button type="submit" color="primary" onClick={(e) => {
                                                 e.preventDefault();
                                                 console.log("task add",emailtoid[email]);
-                                                apiservice.callServicePostFormdata(getUrlWithId(TASK_ADD,emailtoid[email]),
+                                                apiservice.callServicePostFormdata(getUrlWithId(TASK_ADD),
                                                     { title: title, description: description, status: status }).then(() => {
                                                         showToast("Success", 'Task added Successfully');
                                                         setTimeout(() => { window.location.href = 'http://localhost:4400/viewtasks' }, 500);
