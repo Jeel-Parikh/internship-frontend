@@ -30,6 +30,7 @@ import TasksList from "pages/Task/tasks-list";
 import Attendance from "pages/Attendance/EmployeeAttendance";
 import LeaveApplication from "pages/Leave Application/LeaveApplication";
 import ViewAttendance from "pages/Attendance/ViewAttendance";
+import AdminLeaveApplication from "pages/Leave Application/AdminLeaveApplication";
 // import PostJob from "../pages/Job/PostJob";
 
 
@@ -55,6 +56,7 @@ const authProtectedRoutes = [
   { path: '/admin-view-profile', component: AdminViewProfile },
   { path: "/add-employee", component: AddEmployee },
   { path: "/leave-application", component: LeaveApplication },
+  {path:"/viewLeaveApplication",component:AdminLeaveApplication},
   { path: "/ViewAttendace/:id", component: ViewAttendance },
 
 
