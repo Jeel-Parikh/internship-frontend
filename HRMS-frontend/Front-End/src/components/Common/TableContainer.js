@@ -13,6 +13,7 @@ import {
 import { Table, Row, Col, Button, Input } from "reactstrap";
 import { Filter, DefaultColumnFilter } from "./filters";
 import { apiservice } from "apiservice";
+import showToast from "helpers/Toast";
 
 // Define a default UI for filtering
 function GlobalFilter({
@@ -166,7 +167,10 @@ console.log("clicked");
   let handelSubmit=async()=>{
     console.log("-0-0-0",attendance);
     axios.post("http://localhost:3001/attendance", {data:attendance}, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
-                .then((res) => { console.log(res) })
+                .then((res) => { 
+                  console.log(res)
+                  showToast("success", "Success", "Attendance Marked")
+                })
                 .catch((e) => { console.log(e) })
 
     
