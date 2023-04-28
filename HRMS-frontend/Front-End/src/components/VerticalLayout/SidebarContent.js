@@ -165,8 +165,8 @@ const SidebarContent = props => {
                 {isadmin?<li>
                   <Link to="/viewtask">{props.t("View Task")}</Link>
                 </li>:<></>
-                }{!isadmin?<li>
-                  <Link to="/viewtasks">{props.t("View Task")}</Link>
+                   }{isadmin?<li>
+                    <Link to="/viewtasks">{props.t("My Task")}</Link>
                 </li>:<></>
 }
                 {isadmin?<li>

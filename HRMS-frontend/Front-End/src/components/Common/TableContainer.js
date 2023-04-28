@@ -127,7 +127,7 @@ const TableContainer = ({
   let [selecteddate, setselecteddate] = useState(new Date())
   let [attendance, setattendance] = useState(obj);
   let [userdata, setuserdata] = useState([]);
-  let [oldattendancedata,setoldattendancedata]=useState({})
+  let [oldattendancedata, setoldattendancedata] = useState({})
   useEffect(() => {
     let temparr = data.map(item => item._id)
 
@@ -149,8 +149,8 @@ const TableContainer = ({
   }
 
   let handleselecteddatechange = (d) => {
-    console.log(format(d, 'yyyy-MM-dd'));
-    setselecteddate(d)
+    // console.log(format(d, 'yyyy-MM-dd'));
+    setselecteddate(d.target.value)
   }
 
   let [selectall, setselectedall] = useState(false)
@@ -176,8 +176,8 @@ const TableContainer = ({
   }
 
   let handelSubmit = async () => {
-    console.log("-0-0-0", attendance);
-    axios.post("http://localhost:3001/attendance", { data: attendance, date: format(selecteddate, 'yyyy-MM-dd') }, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
+    // console.log("-0-0-0", attendance);
+    axios.post("http://localhost:3001/attendance", { data: attendance, date: selecteddate }, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
       .then((res) => {
         console.log(res)
         showToast("success", "Success", "Attendance Marked")
@@ -195,7 +195,7 @@ const TableContainer = ({
           }
           setattendance(obj)
           console.log("tis is obj", obj, userdata);
-        }else{
+        } else {
           setattendance(oldattendancedata)
         }
       })
@@ -213,7 +213,7 @@ const TableContainer = ({
           }
           setattendance(obj)
           console.log("tis is obj", obj, userdata);
-        }else{
+        } else {
           setattendance(oldattendancedata)
         }
       })
@@ -285,7 +285,8 @@ const TableContainer = ({
           </tbody>
         </Table>
 
-        <DatePicker maxDate={new Date()} format={"y-MM-dd"} value={selecteddate} onChange={(value) => handleselecteddatechange(value)} />
+        {/* <DatePicker maxDate={new Date()} format={"y-MM-dd"} value={selecteddate} onChange={(value) => handleselecteddatechange(value)} /> */}
+        <input type="date" name="" id="" maxDate={new Date()} value={selecteddate} onChange={(value) => handleselecteddatechange(value)} />
       </div>
 
       <Row className="justify-content-md-end justify-content-center align-items-center">
