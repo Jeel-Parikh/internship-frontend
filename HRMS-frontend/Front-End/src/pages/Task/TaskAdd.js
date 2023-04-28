@@ -171,8 +171,9 @@ const TasksAdd = () => {
                                         <Col lg="10">
                                             <Button type="submit" color="primary" onClick={(e) => {
                                                 e.preventDefault();
-                                                console.log("task add",emailtoid[email]);
-                                                apiservice.callServicePostFormdata(getUrlWithId(TASK_ADD),
+                                                console.log("task add",email);
+                                                apiservice.callServicePostFormdata(
+                                                     "/task/" +email ,
                                                     { title: title, description: description, status: status }).then(() => {
                                                         showToast("Success", 'Task added Successfully');
                                                         // setTimeout(() => { window.location.href = 'http://localhost:4400/viewtasks' }, 500);
