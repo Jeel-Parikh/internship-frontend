@@ -59,7 +59,7 @@ function ViewTask(props) {
                 // setUser(temp);
             })
             .catch((e) => { console.log(e) })
-
+console.log("this is page");
     }, [])
     // useEffect(()=>{
     //     let temp = users.filter((user)=>{user.name === search});
@@ -117,6 +117,7 @@ function ViewTask(props) {
                                                                 key={user._id}
                                                             >
                                                                 <Link
+                                                                to="#"
                                                                     onClick={() => {
                                                                         apiservice.callServiceGet(TASK_ADD + "/" + user._id).then((reply) => {
                                                                             console.log(reply);
@@ -202,12 +203,12 @@ function ViewTask(props) {
                                                         <div className="chat-conversation p-3">
                                                             <ul className="list-unstyled">
                                                                 <PerfectScrollbar
-                                                                    style={{ height: "470px" }}
+                                                                    // style={{ height: "470px" }}
                                                                 // containerRef={ref => setMessageBox(ref)}
                                                                 >
 
-                                                                    {res &&
-                                                                        map(res, task => (
+                                                                    {responses &&
+                                                                        map(responses.task, task => (
                                                                             <li
                                                                                 key={task.title}
 
