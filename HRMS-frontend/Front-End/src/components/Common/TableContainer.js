@@ -185,7 +185,10 @@ const TableContainer = ({
       .catch((e) => { console.log(e) })
   }
   useEffect(() => {
-    axios.get(`http://localhost:3001/attendance/date/${selecteddate}`, { headers: { "Authorization": localStorage.getItem('token'), 'Content-Type': 'application/json' } })
+    axios.get(`http://localhost:3001/attendance/date/${selecteddate}`, 
+    { headers: { 
+      "Authorization": localStorage.getItem('token'), 
+    'Content-Type': 'application/json' } })
       .then((res) => {
         console.log("this is after selcted date chnage", res)
         if (res.data.count !== 0) {

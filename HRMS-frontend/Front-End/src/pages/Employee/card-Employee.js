@@ -92,18 +92,18 @@ const CardEmployee = (props) => {
                     placement="top"
                     target={"message" + user.id}
                   >
-                    Message
+                    Employee task
                   </UncontrolledTooltip>
                 </Link>
               </div>
               <div className="flex-fill">
                 <Link to={`/ViewAttendace/${user._id}`} id={"project" + user.id}>
-                  <i className="bx bx-pie-chart-alt" />
+                  <i className="fa-solid fa-calendar-days" />
                   <UncontrolledTooltip
                     placement="top"
                     target={"project" + user.id}
                   >
-                    Projects
+                    attendance
                   </UncontrolledTooltip>
                 </Link>
               </div>

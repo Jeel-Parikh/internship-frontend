@@ -11,8 +11,8 @@ function AdminLeaveApplication(){
     useEffect(()=>{
 
         apiservice.callServiceGet('/leave/').then((res)=>{
-            console.log(res.data.result);
-            setLeaveApplications(res.data.result)
+            console.log("===============",JSON.parse(res.data.result));
+            setLeaveApplications(JSON.parse(res.data.result))
         })
 
     },[])
@@ -25,32 +25,34 @@ function AdminLeaveApplication(){
                     <br></br>
                         <h2> Show applications </h2>
                         {LeaveApplications.map(leave => {
+                            // console.log(leave)
                             return (
+                                
                                 <div className="leaveCard">
                                     <div className="leaveDateWrapperHistory">
                                         <label className="leaveDateLabelHistory" htmlFor="name">Name: </label>
-                                        <p className="leaveDateHistory" name="name">{leave.userId.name}</p>
+                                        <p className="leaveDateHistory" name="name">{leave?.userId?.name}</p>
                                     </div>
                                     <div className="leaveDateWrapperHistory">
                                         <label className="leaveDateLabelHistory" htmlFor="email">Email:</label>
-                                        <p className="leaveDateHistory" name="email">{leave.userId.email}</p>
+                                        <p className="leaveDateHistory" name="email">{leave?.userId?.email}</p>
                                     </div>
                                     
                                     <div className="leaveDateWrapperHistory">
                                         <label className="leaveDateLabelHistory" htmlFor="leaveDate">Start Date:</label>
-                                        <p className="leaveDateHistory">{leave.startDate.slice(0, 10)}</p>
+                                        <p className="leaveDateHistory">{leave?.startDate?.slice(0, 10)}</p>
                                     </div>
                                     <div className="leaveDateWrapperHistory">
                                         <label className="leaveDateLabelHistory" htmlFor="leaveDate">End Date:</label>
-                                        <p className="leaveDateHistory">{leave.endDate.slice(0, 10)}</p>
+                                        <p className="leaveDateHistory">{leave?.endDate?.slice(0, 10)}</p>
                                     </div>
                                     
                                     <div className="leaveReasonWrapperHistory">
                                         <label className="leaveReasonLabelHistory" htmlFor="leaveReason">Reason</label>
-                                        <p className="leaveReasonHistory">{leave.reason}</p>
+                                        <p className="leaveReasonHistory">{leave?.reason}</p>
                                     </div>
                                     <div className="mb-3">
-                                   < input id="adminRespoonse" name="response" className="" type="text" list="details" value={response}
+                                   <input id="adminRespoonse" name="response" className="" type="text" list="details" value={response}
                                                             placeholder="Enter Response"
                                                             onChange={(e) => { setResponse(e.target.value) }} />
 
