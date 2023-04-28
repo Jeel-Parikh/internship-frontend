@@ -162,10 +162,11 @@ const SidebarContent = props => {
               </Link>
               <ul className="sub-menu">
 
-                {isadmin?<li>
+                {isadmin?
+                <li>
                   <Link to="/viewtask">{props.t("View Task")}</Link>
                 </li>:<></>
-                   }{isadmin?<li>
+                   }{true?<li>
                     <Link to="/viewtasks">{props.t("My Task")}</Link>
                 </li>:<></>
 }

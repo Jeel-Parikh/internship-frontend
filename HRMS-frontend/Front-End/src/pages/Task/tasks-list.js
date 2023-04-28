@@ -68,9 +68,11 @@ const TasksList = props => {
       setFullResponse(reply.data.result);
 
       let response = reply.data.result[0].task;
-      console.log("==-=", response);
+      console.log("==-=     this is response from get task", reply.data.result);
       setRes(response);
     }).catch((e) => { console.log("error occured", e) })
+// console.log(props);
+//     setRes(props.task)
 
   }
   // responseTask();
@@ -100,7 +102,7 @@ const TasksList = props => {
                   <div className="table-responsive">
                     <table className="table table-nowrap align-middle mb-0">
                       <tbody>
-                        {map(res, (task) => (
+                        {responses.task.map((task) => (
                           <tr key={task.date}>
                             {/* <td >
                               <div>
@@ -113,23 +115,11 @@ const TasksList = props => {
                               <div className="team">
                                 <img className='rounded-circle avatar-sm' src={service.API_URL + user.userPhoto}
                                 />
-
-
                               </div>
                             </td> */}
                             <td>
-
-
-
-
                               <UiTabsAccordions1 id={task._id} title={task.title} description={task.description} time={task.date} status={task.status} />
-
-
                             </td>
-
-
-
-
                           </tr>
                         ))}
                       </tbody>
