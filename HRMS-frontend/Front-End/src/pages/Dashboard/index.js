@@ -7,7 +7,7 @@ import {
 import WelcomeComp from "./WelcomeComp";
 const Dashboard = (props) => {
   //meta title
-  document.title = "Dashboard | Hrms@Pyther";
+  document.title = "Dashboard | HrmS@simform";
   return (
     <React.Fragment>
       <div className="page-content">

@@ -17,7 +17,7 @@ const ViewEmployees = () => {
 
   const [users, setUser] = useState()
 
-  document.title = "User Employees|Hrms@Pyther";
+  document.title = "User Employees|Hrms@Simform";
 
   useEffect(() => {
     console.log(localStorage.getItem('token'));

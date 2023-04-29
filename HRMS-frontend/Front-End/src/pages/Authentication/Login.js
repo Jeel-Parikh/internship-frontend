@@ -33,7 +33,7 @@ const Login = props => {
   }
 
   //meta title
-  document.title = "Login | Welcome to Pyther";
+  document.title = "Login | Welcome to HRMS";
   // let navigate = useNavigate();
 
   const validation = useFormik({
@@ -186,7 +186,7 @@ const Login = props => {
               <div className="text-center">
                 <p>
                   © {new Date().getFullYear()} Made with {" "}
-                  <i className="mdi mdi-heart text-danger" /> by Pyther Innovations
+                  <i className="mdi mdi-heart text-danger" /> by Simform Solutions
                 </p>
               </div>
             </Col>
